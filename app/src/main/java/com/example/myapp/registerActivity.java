@@ -17,12 +17,15 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
+import java.io.Serializable;
 
-public class registerActivity extends AppCompatActivity {
+
+public class registerActivity extends AppCompatActivity implements Serializable {
 
     public EditText email,psw;
     Button btsiup,btsignin;
     TextView tvsin;
+
     FirebaseAuth mFire ;
 
 
@@ -61,7 +64,9 @@ public class registerActivity extends AppCompatActivity {
                                 Toast.makeText(registerActivity.this,"SignUp Unsuccessful,Please try again",Toast.LENGTH_SHORT).show();
                             }
                             else{
-                                startActivity(new Intent(registerActivity.this, ChooseAthorithyActivity.class));
+                                Intent intohome = new Intent(registerActivity.this, ChooseAthorithyActivity.class);
+                                intohome.putExtra("email",email.getText().toString());
+                                startActivity(intohome);
                             }
                         }
                     });

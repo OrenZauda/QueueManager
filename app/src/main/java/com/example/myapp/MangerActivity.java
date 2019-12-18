@@ -3,6 +3,7 @@ package com.example.myapp;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -22,11 +23,13 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class MangerActivity extends AppCompatActivity {
+public class MangerActivity extends AppCompatActivity implements Serializable {
+
     Button btback,btcreate,btmygroups;
     TextView options ;
     EditText groupname,playersnum;
@@ -34,6 +37,8 @@ public class MangerActivity extends AppCompatActivity {
     ArrayList <String> doc = new ArrayList<>();
     ListView mylist ;
     ArrayAdapter <String> adapter;
+    String email;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +52,9 @@ public class MangerActivity extends AppCompatActivity {
         groupname = findViewById(R.id.Textgroupname);
         playersnum = findViewById(R.id.textnumplayer);
         mylist = findViewById(R.id.mylist);
+        email = (String)getIntent().getSerializableExtra("email");
+
+
 
 
 
@@ -108,29 +116,32 @@ public class MangerActivity extends AppCompatActivity {
         btmygroups.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               doc.clear();
-               mylist.setAdapter(null);
-                db.collection("queues")
 
-                        .get()
-                        .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                            @Override
-                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                                if (task.isSuccessful()) {
-
-                                    for (QueryDocumentSnapshot document : task.getResult()) {
-
-                                        doc.add(document.getData().get("queuename").toString());
-
-                                        Log.d("avi", document.getId() + " => " + document.getData().get("queuename").toString());
-                                    }
-                                } else {
-                                    Log.d("avi", "Error getting documents: ", task.getException());
-                                }
-                                adapter = new ArrayAdapter<String>(MangerActivity.this,android.R.layout.simple_list_item_1,doc);
-                                mylist.setAdapter(adapter);
-                            }
-                        });
+                Intent toManagergroups = new Intent (MangerActivity.this,Managergroupslist.class);
+                startActivity(toManagergroups);
+//               doc.clear();
+//               mylist.setAdapter(null);
+//                db.collection("queues")
+//
+//                        .get()
+//                        .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+//                            @Override
+//                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+//                                if (task.isSuccessful()) {
+//
+//                                    for (QueryDocumentSnapshot document : task.getResult()) {
+//
+//                                        doc.add(document.getData().get("queuename").toString());
+//
+//                                        Log.d("avi", document.getId() + " => " + document.getData().get("queuename").toString());
+//                                    }
+//                                } else {
+//                                    Log.d("avi", "Error getting documents: ", task.getException());
+//                                }
+//                                adapter = new ArrayAdapter<String>(MangerActivity.this,android.R.layout.simple_list_item_1,doc);
+//                                mylist.setAdapter(adapter);
+//                            }
+//                        });
 
 
             }

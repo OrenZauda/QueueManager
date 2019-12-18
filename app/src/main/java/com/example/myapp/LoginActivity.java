@@ -17,7 +17,9 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-public class LoginActivity extends AppCompatActivity {
+import java.io.Serializable;
+
+public class LoginActivity extends AppCompatActivity implements Serializable {
 
     public EditText email,psw;
     Button btsin,btsiup;
@@ -40,7 +42,7 @@ public class LoginActivity extends AppCompatActivity {
         btsin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String emailid = email.getText().toString();
+                final String emailid = email.getText().toString();
                 String pssw = psw.getText().toString();
                 if(emailid.isEmpty()){
                     email.setError("Please enter email");
@@ -64,6 +66,7 @@ public class LoginActivity extends AppCompatActivity {
 
                             } else {
                                 Intent intohome = new Intent(LoginActivity.this, ChooseAthorithyActivity.class);
+                                intohome.putExtra("email",email.getText().toString());
                                 startActivity(intohome);
                             }
                         }
@@ -94,6 +97,7 @@ public class LoginActivity extends AppCompatActivity {
                 if(firebase != null ){
                     Toast.makeText(LoginActivity.this,"You are logged in!",Toast.LENGTH_SHORT).show();
                     Intent i = new Intent(LoginActivity.this, ChooseAthorithyActivity.class);
+                    i.putExtra("email",email.getText().toString());
                     startActivity(i);
                 }
                 else {
