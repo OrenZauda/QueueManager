@@ -6,7 +6,7 @@ Oren Zauda, [Avichay Avtai Nega](https://github.com/avichaynega), [Martin Ogan](
 In this task we will deal with interactions between users and the applications and saving their data in the database.
 our goal is application of priority queues, which managed by their creator users and fullfilled by other users.
 
-## Queue Manager Application
+## summary
 
 Their is 3 possible ways to order the users in a given queue. first is FIFO, first in first out.
 The second is based on how much other queues the user attend. the less he attend, the higher place he get in the queue.
