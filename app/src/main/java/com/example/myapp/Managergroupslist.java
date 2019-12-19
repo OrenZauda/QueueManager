@@ -10,6 +10,7 @@ import android.widget.ListView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -22,6 +23,7 @@ public class Managergroupslist extends AppCompatActivity {
     ListView mylist ;
     ArrayList<String> doc = new ArrayList<>();
     FirebaseFirestore db = FirebaseFirestore.getInstance();
+    String email;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +31,7 @@ public class Managergroupslist extends AppCompatActivity {
         setContentView(R.layout.activity_managergroupslist);
 
         mylist = findViewById(R.id.mylist);
+        email = (String)getIntent().getSerializableExtra("email");
 
         doc.clear();
         mylist.setAdapter(null);
@@ -41,10 +44,12 @@ public class Managergroupslist extends AppCompatActivity {
                         if (task.isSuccessful()) {
 
                             for (QueryDocumentSnapshot document : task.getResult()) {
+                                if(document.getData().get("manager").toString().equals(email)) {
+                                    doc.add(document.getData().get("queuename").toString());
 
-                                doc.add(document.getData().get("queuename").toString());
 
-                                Log.d("avi", document.getId() + " => " + document.getData().get("queuename").toString());
+                                    Log.d("avi", document.getId() + " => " + document.getData().get("queuename").toString());
+                                }
                             }
                         } else {
                             Log.d("avi", "Error getting documents: ", task.getException());

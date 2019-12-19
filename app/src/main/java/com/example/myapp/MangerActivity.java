@@ -87,6 +87,7 @@ public class MangerActivity extends AppCompatActivity implements Serializable {
                     data.put("criteria", 1815);
                     data.put("queuename", queuename);
                     data.put("maxplayers", num);
+                    data.put("manager",email);
 
 
 
@@ -118,6 +119,7 @@ public class MangerActivity extends AppCompatActivity implements Serializable {
             public void onClick(View v) {
 
                 Intent toManagergroups = new Intent (MangerActivity.this,Managergroupslist.class);
+                toManagergroups.putExtra("email",email);
                 startActivity(toManagergroups);
 //               doc.clear();
 //               mylist.setAdapter(null);

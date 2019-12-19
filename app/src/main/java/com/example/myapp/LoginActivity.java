@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -98,6 +99,7 @@ public class LoginActivity extends AppCompatActivity implements Serializable {
                     Toast.makeText(LoginActivity.this,"You are logged in!",Toast.LENGTH_SHORT).show();
                     Intent i = new Intent(LoginActivity.this, ChooseAthorithyActivity.class);
                     i.putExtra("email",email.getText().toString());
+                    Log.d("mylog","mifre base block");
                     startActivity(i);
                 }
                 else {
