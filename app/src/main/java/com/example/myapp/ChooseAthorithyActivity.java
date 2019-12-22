@@ -1,18 +1,25 @@
 package com.example.myapp;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
+import android.widget.ImageView;
+import android.widget.Toast;
 
+
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class ChooseAthorithyActivity extends AppCompatActivity {
-
-    Button blogout , btmanager,btplayer ;
+    GoogleSignInClient mGoogleSignInClient;
+    Button blogout ;
+    ImageView manger_mode,participate_mode,log_out;
     FirebaseAuth mfire;
     private FirebaseAuth.AuthStateListener firelis;
     String email;
@@ -26,23 +33,23 @@ public class ChooseAthorithyActivity extends AppCompatActivity {
         email = (String)getIntent().getSerializableExtra("email");
 
 
-        btmanager = findViewById(R.id.btmanager);
-        btplayer = findViewById(R.id.btplayer);
+        manger_mode = findViewById(R.id.manger_mode);
+        participate_mode = findViewById(R.id.participate_mode);
 
-        btmanager.setOnClickListener(new View.OnClickListener() {
+        manger_mode.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                Intent tomangerscr = new Intent(ChooseAthorithyActivity.this,MangerActivity.class);
+                Intent tomangerscr = new Intent(ChooseAthorithyActivity.this,dashboardActivity.class);
                 tomangerscr.putExtra("email",email);
                 startActivity(tomangerscr);
             }
         });
 
-        btplayer.setOnClickListener(new View.OnClickListener() {
+        participate_mode.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent toplayerscr = new Intent(ChooseAthorithyActivity.this,PlayerActivity.class);
+                Intent toplayerscr = new Intent(ChooseAthorithyActivity.this,dashboardActivity.class);
                 toplayerscr.putExtra("email",email);
                 startActivity(toplayerscr);
             }
@@ -50,12 +57,19 @@ public class ChooseAthorithyActivity extends AppCompatActivity {
 
 
 
-       blogout = findViewById(R.id.btlogout);
-        blogout.setOnClickListener(new View.OnClickListener() {
+        log_out = findViewById(R.id.log_out);
+        log_out.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 FirebaseAuth.getInstance().signOut();
-                Intent intomain = new Intent(ChooseAthorithyActivity.this, registerActivity.class);
+                switch (v.getId()) {
+                    case R.id.logoutbt:
+                        signOut();
+                        Intent tologin = new Intent(ChooseAthorithyActivity.this,LoginActivity.class);
+                        startActivity(tologin);
+                        break;
+                }
+                Intent intomain = new Intent(ChooseAthorithyActivity.this, LoginActivity.class);
                 startActivity(intomain);
             }
         });
@@ -65,5 +79,15 @@ public class ChooseAthorithyActivity extends AppCompatActivity {
 
 
 
+    }
+    private void signOut() {
+        mGoogleSignInClient.signOut()
+                .addOnCompleteListener(this, new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        Toast.makeText(ChooseAthorithyActivity.this,"signed out successfuly",Toast.LENGTH_LONG).show();
+                        finish();
+                    }
+                });
     }
 }

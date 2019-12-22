@@ -38,7 +38,6 @@ public class PlayerActivity extends AppCompatActivity {
         doc.clear();
         mylist.setAdapter(null);
         db.collection("queues")
-
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
