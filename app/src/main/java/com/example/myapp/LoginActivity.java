@@ -200,4 +200,9 @@ public class LoginActivity extends AppCompatActivity implements Serializable {
         super.onStart();
         mFire.addAuthStateListener(mFireLis);
     }
+    @Override
+    public void onBackPressed() {
+    // super.onBackPressed();
+    // Not calling **super**, disables back button in current screen.
+    }
 }

@@ -150,14 +150,14 @@
                     android:layout_height="match_parent"
                     >
                     <ImageView
-                        android:src="@drawable/bookmark"
+                        android:src="@drawable/create_group"
                         android:layout_width="80dp"
                         android:layout_height="80dp"/>
                     <TextView
                         android:layout_marginTop="12dp"
                         android:textColor="#6F6F6F"
                         android:textSize="18sp"
-                        android:text="calander"
+                        android:text="Create group"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"/>
                 </LinearLayout>

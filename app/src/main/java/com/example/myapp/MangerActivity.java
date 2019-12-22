@@ -57,9 +57,6 @@ public class MangerActivity extends AppCompatActivity implements Serializable {
 
 
 
-
-
-
         btcreate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
