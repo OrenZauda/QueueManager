@@ -22,6 +22,7 @@ public class ChooseAthorithyActivity extends AppCompatActivity {
     ImageView manger_mode,participate_mode,log_out;
     FirebaseAuth mfire;
     private FirebaseAuth.AuthStateListener firelis;
+    boolean manager_mode =false;
     String email;
 
 
@@ -39,8 +40,9 @@ public class ChooseAthorithyActivity extends AppCompatActivity {
         manger_mode.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                manager_mode = true;
                 Intent tomangerscr = new Intent(ChooseAthorithyActivity.this,dashboardActivity.class);
+                tomangerscr.putExtra("manager_mode",manager_mode);
                 tomangerscr.putExtra("email",email);
                 startActivity(tomangerscr);
             }
@@ -49,7 +51,9 @@ public class ChooseAthorithyActivity extends AppCompatActivity {
         participate_mode.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                manager_mode = false;
                 Intent toplayerscr = new Intent(ChooseAthorithyActivity.this,dashboardActivity.class);
+                toplayerscr.putExtra("manager_mode",manager_mode);
                 toplayerscr.putExtra("email",email);
                 startActivity(toplayerscr);
             }

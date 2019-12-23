@@ -40,6 +40,7 @@
                 android:text="My dashboard"
                 />
             <TextView
+                android:id="@+id/mode"
                 android:layout_marginLeft="30dp"
                 android:layout_toRightOf="@id/logoutbt"
                 android:layout_marginTop="6dp"
@@ -120,6 +121,7 @@
                     android:layout_height="match_parent"
                     >
                     <ImageView
+                        android:id="@+id/my_groups_view"
                         android:src="@drawable/user_groups"
                         android:layout_width="80dp"
                         android:layout_height="80dp"/>

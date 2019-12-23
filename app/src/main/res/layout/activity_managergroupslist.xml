@@ -1,36 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MangerActivity">
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+       <RelativeLayout
+           android:background="@color/signupColor"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content">
 
-    <TextView
-        android:id="@+id/textgroup"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
-        android:text="Your list group"
+           <ImageView
+               android:id="@+id/logoutbt"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:src="@drawable/log_out_icon"
+               />
 
-        android:textSize="24dp"
-        app:layout_constraintBottom_toTopOf="@+id/mylist"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.83" />
+           <TextView
+                android:layout_centerInParent="true"
+               android:id="@+id/textgroup"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:text="Your list group"
+               android:textSize="24dp" />
 
-    <ListView
-        android:id="@+id/mylist"
-        android:layout_width="200dp"
-        android:layout_height="400dp"
-        android:layout_marginTop="164dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"></ListView>
+       </RelativeLayout>
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+            <ListView
+                android:id="@+id/mylist"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                >
+
+            </ListView>
+
+
+    </LinearLayout>
+
+</RelativeLayout>
 
 

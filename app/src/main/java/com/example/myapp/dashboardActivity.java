@@ -21,16 +21,26 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 
 public class dashboardActivity extends AppCompatActivity {
-    ImageView personimage,logoutbt;
-    TextView mydashboard;
+    ImageView personimage,logoutbt,my_groups_view;
+    TextView mydashboard,mode;
     GoogleSignInClient mGoogleSignInClient;
     String personName;
     String personGivenName;
     String personFamilyName;
+    boolean manager_mode;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
+
+        manager_mode = (boolean)getIntent().getSerializableExtra("manager_mode");
+        mode = findViewById(R.id.mode);
+
+        if(manager_mode){ mode.setText("Manager\nmode"); }
+        else{ mode.setText("Participate\nmode");}
+
+
+
         mydashboard = findViewById(R.id.mydashboard);
         personimage = findViewById(R.id.personimage);
         logoutbt = findViewById(R.id.logoutbt);
@@ -63,6 +73,16 @@ public class dashboardActivity extends AppCompatActivity {
 
         }
         mydashboard.setText(personGivenName +" "+personFamilyName);
+        my_groups_view = findViewById(R.id.my_groups_view);
+        my_groups_view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent tomanangergroup = new Intent(dashboardActivity.this,Managergroupslist.class);
+                startActivity(tomanangergroup);
+            }
+        });
+
+
     }
 
     private void signOut() {
