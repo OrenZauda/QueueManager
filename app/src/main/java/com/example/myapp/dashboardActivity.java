@@ -21,7 +21,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 
 public class dashboardActivity extends AppCompatActivity {
-    ImageView personimage,logoutbt,my_groups_view;
+    ImageView personimage,log_out,my_groups_view,back;
     TextView mydashboard,mode;
     GoogleSignInClient mGoogleSignInClient;
     String personName;
@@ -40,19 +40,19 @@ public class dashboardActivity extends AppCompatActivity {
         else{ mode.setText("Participate\nmode");}
 
 
-
+        back = findViewById(R.id.back);
         mydashboard = findViewById(R.id.mydashboard);
         personimage = findViewById(R.id.personimage);
-        logoutbt = findViewById(R.id.logoutbt);
+        log_out = findViewById(R.id.log_out);
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()
                 .build();
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
-        logoutbt.setOnClickListener(new View.OnClickListener() {
+        log_out.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 switch (v.getId()) {
-                    case R.id.logoutbt:
+                    case R.id.log_out:
                         signOut();
                         Intent tologin = new Intent(dashboardActivity.this,LoginActivity.class);
                         startActivity(tologin);
@@ -79,6 +79,13 @@ public class dashboardActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent tomanangergroup = new Intent(dashboardActivity.this,Managergroupslist.class);
                 startActivity(tomanangergroup);
+            }
+        });
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent toselectmode = new Intent(dashboardActivity.this,ChooseAthorithyActivity.class);
+                startActivity(toselectmode);
             }
         });
 

@@ -62,21 +62,21 @@ public class ChooseAthorithyActivity extends AppCompatActivity {
 
 
         log_out = findViewById(R.id.log_out);
-        log_out.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                FirebaseAuth.getInstance().signOut();
-                switch (v.getId()) {
-                    case R.id.logoutbt:
-                        signOut();
-                        Intent tologin = new Intent(ChooseAthorithyActivity.this,LoginActivity.class);
-                        startActivity(tologin);
-                        break;
-                }
-                Intent intomain = new Intent(ChooseAthorithyActivity.this, LoginActivity.class);
-                startActivity(intomain);
-            }
-        });
+//        log_out.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                FirebaseAuth.getInstance().signOut();
+//                switch (v.getId()) {
+//                    case R.id.logoutbt:
+//                        signOut();
+//                        Intent tologin = new Intent(ChooseAthorithyActivity.this,LoginActivity.class);
+//                        startActivity(tologin);
+//                        break;
+//                }
+//                Intent intomain = new Intent(ChooseAthorithyActivity.this, LoginActivity.class);
+//                startActivity(intomain);
+//            }
+//        });
 
 
 
