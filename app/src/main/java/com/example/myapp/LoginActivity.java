@@ -40,7 +40,7 @@ public class LoginActivity extends AppCompatActivity implements Serializable {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        mFire = FirebaseAuth.getInstance();
+        mFire = FirebaseAuth.getInstance(); 
         email = findViewById(R.id.emailtext);
         psw = findViewById(R.id.passwordtext);
         loginbt = findViewById(R.id.loginbt);
@@ -105,7 +105,7 @@ public class LoginActivity extends AppCompatActivity implements Serializable {
             }
         });
 
-        signupbt.setOnClickListener(new View.OnClickListener() {
+         signupbt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String emailid = email.getText().toString();
