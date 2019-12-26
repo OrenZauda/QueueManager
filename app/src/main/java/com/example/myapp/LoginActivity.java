@@ -202,7 +202,15 @@ public class LoginActivity extends AppCompatActivity implements Serializable {
     }
     @Override
     public void onBackPressed() {
-    // super.onBackPressed();
+
+      super.onBackPressed();
+        finishAffinity();
     // Not calling **super**, disables back button in current screen.
     }
+//    @Override
+//    public void onDestroy()
+//    {
+//        android.os.Process.killProcess(android.os.Process.myPid());
+//        super.onDestroy();
+//    }
 }

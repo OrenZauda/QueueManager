@@ -22,14 +22,14 @@ public class Managergroupslist extends AppCompatActivity {
     ArrayAdapter<String> adapter;
     ListView mylist ;
     ArrayList<String> doc = new ArrayList<>();
-    FirebaseFirestore db = FirebaseFirestore.getInstance();
+    FirebaseFirestore db;
     String email;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_managergroupslist);
-
+        db = FirebaseFirestore.getInstance();
         mylist = findViewById(R.id.mylist);
         email = (String)getIntent().getSerializableExtra("email");
 

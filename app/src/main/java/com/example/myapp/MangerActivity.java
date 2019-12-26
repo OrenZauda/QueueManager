@@ -7,21 +7,18 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnCompleteListener;
+
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
+
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -30,13 +27,11 @@ import java.util.Map;
 
 public class MangerActivity extends AppCompatActivity implements Serializable {
 
-    Button btback,btcreate,btmygroups;
-    TextView options ;
-    EditText groupname,playersnum;
+    Button create_bt;
+    ImageView back_bt;
+    EditText group_name, max_players;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
-    ArrayList <String> doc = new ArrayList<>();
     ListView mylist ;
-    ArrayAdapter <String> adapter;
     String email;
 
 
@@ -46,44 +41,47 @@ public class MangerActivity extends AppCompatActivity implements Serializable {
         setContentView(R.layout.activity_manger);
 
 
-        btback = findViewById(R.id.btback);
-        btcreate =findViewById(R.id.btcreategroup);
-        btmygroups = findViewById(R.id.btmygroups);
-        groupname = findViewById(R.id.Textgroupname);
-        playersnum = findViewById(R.id.textnumplayer);
+        back_bt = findViewById(R.id.back);
+        create_bt =findViewById(R.id.btcreategroup);
+        group_name = findViewById(R.id.group_name);
+        max_players = findViewById(R.id.max_players);
         mylist = findViewById(R.id.mylist);
         email = (String)getIntent().getSerializableExtra("email");
 
 
-
-
-        btcreate.setOnClickListener(new View.OnClickListener() {
+        back_bt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String queuename= groupname.getText().toString();
-                int num= Integer.parseInt(playersnum.getText().toString());
-                if(queuename.isEmpty()){
-                    groupname.setError("Please enter queue name");
-                    groupname.requestFocus();
+                Intent todashboard = new Intent(MangerActivity.this,dashboardActivity.class);
+                startActivity(todashboard);
+            }
+        });
+
+        create_bt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(group_name.getText().toString().isEmpty()){
+                    group_name.setError("Please enter queue name");
+                   // group_name.requestFocus();
                 }
-                if(playersnum.getText().toString().isEmpty()){
-                    playersnum.setError("Please enter number");
-                    playersnum.requestFocus();
+                if(max_players.getText().toString().isEmpty()){
+                    max_players.setError("Please enter number");
+                    max_players.requestFocus();
                 }
-                else if(playersnum.getText().toString().isEmpty()&&queuename.isEmpty()){
+                else if(max_players.getText().toString().isEmpty()&&group_name.getText().toString().isEmpty()){
                     Toast.makeText(MangerActivity.this,"Fields are empty",Toast.LENGTH_LONG).show();
 
                 }
-                if (!queuename.isEmpty()&&!playersnum.getText().toString().isEmpty()){
-
-
+                if (!group_name.getText().toString().isEmpty()&&!max_players.getText().toString().isEmpty()){
+                    String queuename= group_name.getText().toString();
+                    int num= Integer.parseInt(max_players.getText().toString());
                     // Create a new user with a first and last queuename
                     Map<String, Object> data = new HashMap<>();
                     ArrayList <String> players = new ArrayList<String>();
                     data.put("arraylist", players);
                     data.put("criteria", 1815);
                     data.put("queuename", queuename);
-                    data.put("maxplayers", num);
+                    data.put("max_players", num);
                     data.put("manager",email);
 
 
@@ -95,6 +93,7 @@ public class MangerActivity extends AppCompatActivity implements Serializable {
                                 @Override
                                 public void onSuccess(DocumentReference documentReference) {
                                     Log.d("MangerActivity", "DocumentSnapshot added with ID: " + documentReference.getId());
+                                    Toast.makeText(MangerActivity.this,"group created successfuly",Toast.LENGTH_LONG).show();
 
                                 }
                             })
@@ -102,6 +101,7 @@ public class MangerActivity extends AppCompatActivity implements Serializable {
                                 @Override
                                 public void onFailure(@NonNull Exception e) {
                                     Log.w("MangerActivity", "Error adding document", e);
+                                    Toast.makeText(MangerActivity.this,"faild to create group",Toast.LENGTH_LONG).show();
                                 }
                             });
                 }
@@ -111,13 +111,6 @@ public class MangerActivity extends AppCompatActivity implements Serializable {
             }
         });
 
-        btmygroups.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                Intent toManagergroups = new Intent (MangerActivity.this,Managergroupslist.class);
-                toManagergroups.putExtra("email",email);
-                startActivity(toManagergroups);
 //               doc.clear();
 //               mylist.setAdapter(null);
 //                db.collection("queues")
@@ -143,9 +136,6 @@ public class MangerActivity extends AppCompatActivity implements Serializable {
 //                        });
 
 
-            }
-
-        });
     }
 }
 

@@ -21,7 +21,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 
 public class dashboardActivity extends AppCompatActivity {
-    ImageView personimage,log_out,my_groups_view,back;
+    ImageView personimage,log_out,my_groups_view,back,create_group_bt;
     TextView mydashboard,mode;
     GoogleSignInClient mGoogleSignInClient;
     String personName;
@@ -33,6 +33,7 @@ public class dashboardActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
 
+        create_group_bt = findViewById(R.id.create_group_bt);
         manager_mode = (boolean)getIntent().getSerializableExtra("manager_mode");
         mode = findViewById(R.id.mode);
 
@@ -86,6 +87,18 @@ public class dashboardActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent toselectmode = new Intent(dashboardActivity.this,ChooseAthorithyActivity.class);
                 startActivity(toselectmode);
+            }
+        });
+        create_group_bt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(manager_mode){
+                    Intent manageractivity = new Intent(dashboardActivity.this,MangerActivity.class);
+                    startActivity(manageractivity);
+                }
+                else{
+                    Toast.makeText(dashboardActivity.this,"valid only in manger mode",Toast.LENGTH_LONG).show();
+                }
             }
         });
 

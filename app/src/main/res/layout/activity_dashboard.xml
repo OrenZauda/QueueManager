@@ -21,16 +21,17 @@
             android:layout_height="wrap_content" >
 
             <ImageView
-
+                android:layout_alignParentLeft="true"
+                style="?android:borderlessButtonStyle"
                 android:id="@+id/back"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:src="@drawable/back_icon"
 
                 />
 
             <TextView
-                android:layout_marginLeft="30dp"
+
                 android:layout_toRightOf="@id/back"
                 android:id="@+id/mydashboard"
                 android:layout_width="wrap_content"
@@ -41,24 +42,30 @@
                 />
             <TextView
                 android:id="@+id/mode"
-                android:layout_marginLeft="30dp"
                 android:layout_toRightOf="@id/back"
                 android:layout_marginTop="6dp"
                 android:layout_below="@id/mydashboard"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="24sp"
+                android:textSize="18sp"
                 android:textColor="#52BAFF"
                 android:text="12 items"
                 />
 
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="35dp"
+                app:strokeWidth="1dp"
+                android:layout_alignParentRight="true"
+                >
             <ImageView
                 android:id="@+id/personimage"
                 android:layout_width="62dp"
                 android:layout_height="62dp"
                 android:src="@drawable/person"
-                android:layout_alignParentRight="true"
                 />
+            </com.google.android.material.card.MaterialCardView>
 
 
 
@@ -92,8 +99,10 @@
                     >
                     <ImageView
                         android:src="@drawable/join_groups"
-                        android:layout_width="80dp"
-                        android:layout_height="80dp"/>
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        style="?android:borderlessButtonStyle"
+                        />
                     <TextView
                         android:layout_marginTop="12dp"
                         android:textColor="#6f6f6f"
@@ -123,8 +132,9 @@
                     <ImageView
                         android:id="@+id/my_groups_view"
                         android:src="@drawable/user_groups"
-                        android:layout_width="80dp"
-                        android:layout_height="80dp"/>
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        style="?android:borderlessButtonStyle"/>
                     <TextView
                         android:layout_marginTop="12dp"
                         android:textColor="#6f6f6f"
@@ -152,9 +162,11 @@
                     android:layout_height="match_parent"
                     >
                     <ImageView
+                        android:id="@+id/create_group_bt"
                         android:src="@drawable/create_group"
-                        android:layout_width="80dp"
-                        android:layout_height="80dp"/>
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        style="?android:borderlessButtonStyle"/>
                     <TextView
                         android:layout_marginTop="12dp"
                         android:textColor="#6F6F6F"
@@ -184,8 +196,9 @@
                     <ImageView
                         android:id="@+id/log_out"
                         android:src="@drawable/log_out"
-                        android:layout_width="80dp"
-                        android:layout_height="80dp"/>
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        style="?android:borderlessButtonStyle"/>
                     <TextView
                         android:layout_marginTop="12dp"
                         android:textColor="#6f6f6f"
