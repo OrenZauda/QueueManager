@@ -4,6 +4,7 @@ package com.example.myapp;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -13,6 +14,11 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -36,17 +42,29 @@ public class usergroupviewActivty extends AppCompatActivity {
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     ArrayAdapter<String> adapter;
     FirebaseAuth mFire ;
-    String docpath ;
+    String docpath ,personGivenName,personFamilyName;
     String email;
     ArrayList<String> users;
+    GoogleSignInClient mGoogleSignInClient;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_usergroupview_activty);
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestEmail()
+                .build();
 
-        email = (String)getIntent().getSerializableExtra("email");
+        mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
+        GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(this);
+        if (acct != null) {
+
+            personGivenName = acct.getGivenName();
+            personFamilyName = acct.getFamilyName();
+
+        }
+        //email = (String)getIntent().getSerializableExtra("email");
         users = new ArrayList<>();
         mylist = findViewById(R.id.mylist);
         queuenametext = findViewById(R.id.queuename);
@@ -85,7 +103,7 @@ public class usergroupviewActivty extends AppCompatActivity {
 
                         ArrayList<String> playres = (ArrayList<String> )snapshot.getData().get("arraylist");
                         if(!(playres.contains(email))) {
-                            playres.add(email);
+                            playres.add(personGivenName+" "+personFamilyName);
                             users = playres;
                             transaction.update(sfDocRef, "arraylist", playres);
 

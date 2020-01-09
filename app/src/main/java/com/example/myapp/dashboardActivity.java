@@ -7,7 +7,6 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -19,35 +18,46 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class dashboardActivity extends AppCompatActivity {
-    ImageView personimage,log_out,my_groups_view,back,create_group_bt;
-    TextView mydashboard,mode;
+    ImageView person_image,log_out, my_queues,back, create_queue, join_queue;
+    TextView user_name, user_mode_text;
     GoogleSignInClient mGoogleSignInClient;
-    String personName;
-    String personGivenName;
-    String personFamilyName;
+    String personName,personGivenName,personFamilyName ,fname;
     boolean manager_mode;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
 
-        create_group_bt = findViewById(R.id.create_group_bt);
+        join_queue = findViewById(R.id.join_queue);
+        create_queue = findViewById(R.id.create_queue);
         manager_mode = (boolean)getIntent().getSerializableExtra("manager_mode");
-        mode = findViewById(R.id.mode);
-
-        if(manager_mode){ mode.setText("Manager\nmode"); }
-        else{ mode.setText("Participate\nmode");}
-
-
+        user_mode_text = findViewById(R.id.user_mode);
         back = findViewById(R.id.back);
-        mydashboard = findViewById(R.id.mydashboard);
-        personimage = findViewById(R.id.personimage);
+        user_name = findViewById(R.id.user_name);
+        person_image = findViewById(R.id.personimage);
         log_out = findViewById(R.id.log_out);
+
+
+        if(manager_mode){ user_mode_text.setText("Manager\nmode"); }
+        else{ user_mode_text.setText("Participant\nmode");}
+
+
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user != null) {
+            // Name, email address, and profile photo Url
+            fname = user.getDisplayName();
+        }
+
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()
                 .build();
+
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
         log_out.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -67,38 +77,51 @@ public class dashboardActivity extends AppCompatActivity {
             personName = acct.getDisplayName();
             personGivenName = acct.getGivenName();
             personFamilyName = acct.getFamilyName();
-            String personEmail = acct.getEmail();
-            String personId = acct.getId();
             Uri personPhoto = acct.getPhotoUrl();
-            Glide.with(this).load(String.valueOf(personPhoto)).into(personimage);
-
+            Glide.with(this).load(String.valueOf(personPhoto)).into(person_image);
+            user_name.setText(personGivenName +" "+personFamilyName);
         }
-        mydashboard.setText(personGivenName +" "+personFamilyName);
-        my_groups_view = findViewById(R.id.my_groups_view);
-        my_groups_view.setOnClickListener(new View.OnClickListener() {
+        else{
+            user_name.setText(fname);
+        }
+        my_queues = findViewById(R.id.my_queues);
+        my_queues.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent tomanangergroup = new Intent(dashboardActivity.this,Managergroupslist.class);
-                startActivity(tomanangergroup);
+                if(manager_mode){
+                    Intent toanangergroup = new Intent(dashboardActivity.this,Managergroupslist.class);
+                    startActivity(toanangergroup);
+                }
+                else{
+
+                }
+
             }
         });
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent toselectmode = new Intent(dashboardActivity.this,ChooseAthorithyActivity.class);
+                Intent toselectmode = new Intent(dashboardActivity.this, SelectModeActivity.class);
                 startActivity(toselectmode);
             }
         });
-        create_group_bt.setOnClickListener(new View.OnClickListener() {
+        create_queue.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(manager_mode){
-                    Intent manageractivity = new Intent(dashboardActivity.this,MangerActivity.class);
+                    Intent manageractivity = new Intent(dashboardActivity.this, CreateQueueActivity.class);
                     startActivity(manageractivity);
                 }
                 else{
                     Toast.makeText(dashboardActivity.this,"valid only in manger mode",Toast.LENGTH_LONG).show();
                 }
+            }
+        });
+        join_queue.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent toGroupsView = new Intent(dashboardActivity.this, JoinQueueActivity.class);
+                startActivity(toGroupsView);
             }
         });
 

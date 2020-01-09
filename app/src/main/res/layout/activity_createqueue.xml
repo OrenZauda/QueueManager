@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MangerActivity">
+    tools:context=".CreateQueueActivity">
 
 <LinearLayout
+    android:background="@mipmap/android_backgroundchart"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -16,14 +16,17 @@
     <RelativeLayout
         android:background="@color/signupColor"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="100dp">
 
         <ImageView
+            android:layout_marginLeft="20dp"
             style="?android:borderlessButtonStyle"
             android:id="@+id/back"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/back_icon"
+            android:layout_width="62dp"
+            android:layout_height="62dp"
+            android:src="@drawable/back_web"
+            android:padding="0pt"
+            android:layout_centerVertical="true"
             />
 
         <TextView
@@ -31,8 +34,9 @@
             android:id="@+id/textgroup"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Create group"
-            android:textSize="24dp" />
+            android:text="Create queue"
+            android:textSize="24dp"
+            android:textColor="@color/white"/>
 
     </RelativeLayout>
 
@@ -50,23 +54,23 @@
             <EditText
                 android:background="@drawable/shapegroupname"
                 android:padding="15dp"
+                android:layout_margin="10dp"
                 android:id="@+id/group_name"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:ems="10"
-                android:hint="group name"
+                android:hint="queue name"
                 android:drawablePadding="10dp"
                 android:inputType="textPersonName"
                 />
 
             <EditText
+                android:layout_margin="10dp"
                 android:drawablePadding="10dp"
                 android:padding="15dp"
                 android:background="@drawable/shapegroupname"
                 android:id="@+id/max_players"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:ems="10"
                 android:hint=" maximum players"
                 android:inputType="number"
                 />
@@ -86,6 +90,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/radiogoup"
+                android:layout_marginBottom="20dp"
                 >
 
                 <RadioButton
@@ -118,6 +123,7 @@
                 android:layout_height="wrap_content"
                 android:text="create group"
                 android:drawablePadding="10dp"
+                android:layout_margin="5dp"
                 />
 
         </LinearLayout>

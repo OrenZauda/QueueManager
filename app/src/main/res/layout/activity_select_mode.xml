@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@drawable/bgapps"
-    tools:context=".ChooseAthorithyActivity">
+    tools:context=".SelectModeActivity">
 
     <RelativeLayout
         android:layout_marginTop="60dp"
@@ -28,6 +28,7 @@
     </RelativeLayout>
 
     <LinearLayout
+        android:id="@+id/firs_linear"
         android:layout_centerInParent="true"
         android:orientation="vertical"
         android:layout_width="match_parent"
@@ -100,23 +101,46 @@
                         android:layout_marginTop="12dp"
                         android:textColor="#6f6f6f"
                         android:textSize="15sp"
-                        android:text="Participate mode"
+                        android:text="Participant mode"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"/>
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
         </GridLayout>
-
-
-
-
-
-
     </LinearLayout>
 
 
 
+        <androidx.cardview.widget.CardView
+            android:layout_centerInParent="true"
+            android:layout_below="@id/firs_linear"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="12dp"
+            >
+            <LinearLayout
+                android:orientation="vertical"
+                android:padding="16dp"
+                android:gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                >
+                <ImageView
+                    android:id="@+id/log_out"
+                    android:src="@drawable/log_out"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    style="?android:borderlessButtonStyle"/>
+                <TextView
+                    android:layout_marginTop="12dp"
+                    android:textColor="#6f6f6f"
+                    android:textSize="18sp"
+                    android:text="Log out"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
 
 
 

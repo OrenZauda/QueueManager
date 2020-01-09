@@ -20,16 +20,15 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class MangerActivity extends AppCompatActivity implements Serializable {
+public class CreateQueueActivity extends AppCompatActivity {
 
     Button create_bt;
     ImageView back_bt;
-    EditText group_name, max_players;
+    EditText queue_name, max_players;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     ListView mylist ;
     String email;
@@ -38,12 +37,12 @@ public class MangerActivity extends AppCompatActivity implements Serializable {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_manger);
+        setContentView(R.layout.activity_createqueue);
 
 
         back_bt = findViewById(R.id.back);
         create_bt =findViewById(R.id.btcreategroup);
-        group_name = findViewById(R.id.group_name);
+        queue_name = findViewById(R.id.group_name);
         max_players = findViewById(R.id.max_players);
         mylist = findViewById(R.id.mylist);
         email = (String)getIntent().getSerializableExtra("email");
@@ -52,7 +51,7 @@ public class MangerActivity extends AppCompatActivity implements Serializable {
         back_bt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent todashboard = new Intent(MangerActivity.this,dashboardActivity.class);
+                Intent todashboard = new Intent(CreateQueueActivity.this,dashboardActivity.class);
                 startActivity(todashboard);
             }
         });
@@ -60,20 +59,20 @@ public class MangerActivity extends AppCompatActivity implements Serializable {
         create_bt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(group_name.getText().toString().isEmpty()){
-                    group_name.setError("Please enter queue name");
-                   // group_name.requestFocus();
+                if(queue_name.getText().toString().isEmpty()){
+                    queue_name.setError("Please enter queue name");
+                   // queue_name.requestFocus();
                 }
                 if(max_players.getText().toString().isEmpty()){
                     max_players.setError("Please enter number");
                     max_players.requestFocus();
                 }
-                else if(max_players.getText().toString().isEmpty()&&group_name.getText().toString().isEmpty()){
-                    Toast.makeText(MangerActivity.this,"Fields are empty",Toast.LENGTH_LONG).show();
+                else if(max_players.getText().toString().isEmpty()&& queue_name.getText().toString().isEmpty()){
+                    Toast.makeText(CreateQueueActivity.this,"Fields are empty",Toast.LENGTH_LONG).show();
 
                 }
-                if (!group_name.getText().toString().isEmpty()&&!max_players.getText().toString().isEmpty()){
-                    String queuename= group_name.getText().toString();
+                if (!queue_name.getText().toString().isEmpty()&&!max_players.getText().toString().isEmpty()){
+                    String queuename= queue_name.getText().toString();
                     int num= Integer.parseInt(max_players.getText().toString());
                     // Create a new user with a first and last queuename
                     Map<String, Object> data = new HashMap<>();
@@ -92,16 +91,16 @@ public class MangerActivity extends AppCompatActivity implements Serializable {
                             .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                                 @Override
                                 public void onSuccess(DocumentReference documentReference) {
-                                    Log.d("MangerActivity", "DocumentSnapshot added with ID: " + documentReference.getId());
-                                    Toast.makeText(MangerActivity.this,"group created successfuly",Toast.LENGTH_LONG).show();
+                                    Log.d("CreateQueueActivity", "DocumentSnapshot added with ID: " + documentReference.getId());
+                                    Toast.makeText(CreateQueueActivity.this,"group created successfuly",Toast.LENGTH_LONG).show();
 
                                 }
                             })
                             .addOnFailureListener(new OnFailureListener() {
                                 @Override
                                 public void onFailure(@NonNull Exception e) {
-                                    Log.w("MangerActivity", "Error adding document", e);
-                                    Toast.makeText(MangerActivity.this,"faild to create group",Toast.LENGTH_LONG).show();
+                                    Log.w("CreateQueueActivity", "Error adding document", e);
+                                    Toast.makeText(CreateQueueActivity.this,"faild to create group",Toast.LENGTH_LONG).show();
                                 }
                             });
                 }
@@ -130,7 +129,7 @@ public class MangerActivity extends AppCompatActivity implements Serializable {
 //                                } else {
 //                                    Log.d("avi", "Error getting documents: ", task.getException());
 //                                }
-//                                adapter = new ArrayAdapter<String>(MangerActivity.this,android.R.layout.simple_list_item_1,doc);
+//                                adapter = new ArrayAdapter<String>(CreateQueueActivity.this,android.R.layout.simple_list_item_1,doc);
 //                                mylist.setAdapter(adapter);
 //                            }
 //                        });

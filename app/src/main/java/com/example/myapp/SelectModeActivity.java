@@ -11,39 +11,44 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 
-public class ChooseAthorithyActivity extends AppCompatActivity {
+public class SelectModeActivity extends AppCompatActivity {
     GoogleSignInClient mGoogleSignInClient;
     Button blogout ;
     ImageView manger_mode,participate_mode,log_out;
     FirebaseAuth mfire;
     private FirebaseAuth.AuthStateListener firelis;
     boolean manager_mode =false;
-    String email;
+    String nickName;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.choose_athorithy_activity);
+        setContentView(R.layout.activity_select_mode);
 
-        email = (String)getIntent().getSerializableExtra("email");
-
-
+        nickName = (String)getIntent().getSerializableExtra("nick name");
         manger_mode = findViewById(R.id.manger_mode);
         participate_mode = findViewById(R.id.participate_mode);
+
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestEmail()
+                .build();
+        mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
 
         manger_mode.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 manager_mode = true;
-                Intent tomangerscr = new Intent(ChooseAthorithyActivity.this,dashboardActivity.class);
+                Intent tomangerscr = new Intent(SelectModeActivity.this,dashboardActivity.class);
                 tomangerscr.putExtra("manager_mode",manager_mode);
-                tomangerscr.putExtra("email",email);
+                tomangerscr.putExtra("nick name",nickName);
                 startActivity(tomangerscr);
             }
         });
@@ -52,9 +57,9 @@ public class ChooseAthorithyActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 manager_mode = false;
-                Intent toplayerscr = new Intent(ChooseAthorithyActivity.this,dashboardActivity.class);
+                Intent toplayerscr = new Intent(SelectModeActivity.this,dashboardActivity.class);
                 toplayerscr.putExtra("manager_mode",manager_mode);
-                toplayerscr.putExtra("email",email);
+                toplayerscr.putExtra("nick name",nickName);
                 startActivity(toplayerscr);
             }
         });
@@ -69,11 +74,11 @@ public class ChooseAthorithyActivity extends AppCompatActivity {
 //                switch (v.getId()) {
 //                    case R.id.logoutbt:
 //                        signOut();
-//                        Intent tologin = new Intent(ChooseAthorithyActivity.this,LoginActivity.class);
+//                        Intent tologin = new Intent(SelectModeActivity.this,LoginActivity.class);
 //                        startActivity(tologin);
 //                        break;
 //                }
-//                Intent intomain = new Intent(ChooseAthorithyActivity.this, LoginActivity.class);
+//                Intent intomain = new Intent(SelectModeActivity.this, LoginActivity.class);
 //                startActivity(intomain);
 //            }
 //        });
@@ -89,10 +94,17 @@ public class ChooseAthorithyActivity extends AppCompatActivity {
                 .addOnCompleteListener(this, new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
-                        Toast.makeText(ChooseAthorithyActivity.this,"signed out successfuly",Toast.LENGTH_LONG).show();
+                        Toast.makeText(SelectModeActivity.this,"signed out successfuly",Toast.LENGTH_LONG).show();
                         finish();
                     }
                 });
+    }
+    @Override
+    public void onBackPressed() {
+
+        super.onBackPressed();
+        signOut();
+        // Not calling **super**, disables back_ground button in current screen.
     }
 
 

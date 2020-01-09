@@ -6,7 +6,8 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@drawable/bgapps"
-    tools:context=".dashboardActivity">
+    tools:context=".dashboardActivity"
+    >
 
     <LinearLayout
         android:orientation="vertical"
@@ -21,35 +22,35 @@
             android:layout_height="wrap_content" >
 
             <ImageView
-                android:layout_alignParentLeft="true"
                 style="?android:borderlessButtonStyle"
                 android:id="@+id/back"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/back_icon"
-
+                android:layout_width="62dp"
+                android:layout_height="62dp"
+                android:src="@drawable/back_web"
+                android:padding="0pt"
                 />
 
             <TextView
-
+                android:layout_marginLeft="20dp"
                 android:layout_toRightOf="@id/back"
-                android:id="@+id/mydashboard"
+                android:id="@+id/user_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="24sp"
                 android:textColor="#FFFFFF"
-                android:text="My dashboard"
+                android:text="User name"
                 />
             <TextView
-                android:id="@+id/mode"
+                android:layout_marginLeft="20dp"
+                android:id="@+id/user_mode"
                 android:layout_toRightOf="@id/back"
                 android:layout_marginTop="6dp"
-                android:layout_below="@id/mydashboard"
+                android:layout_below="@id/user_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="18sp"
                 android:textColor="#52BAFF"
-                android:text="12 items"
+                android:text="User mode"
                 />
 
             <com.google.android.material.card.MaterialCardView
@@ -63,7 +64,7 @@
                 android:id="@+id/personimage"
                 android:layout_width="62dp"
                 android:layout_height="62dp"
-                android:src="@drawable/person"
+                android:src="@drawable/person_image"
                 />
             </com.google.android.material.card.MaterialCardView>
 
@@ -97,17 +98,18 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     >
+
                     <ImageView
-                        android:src="@drawable/join_groups"
-                        android:layout_width="100dp"
-                        android:layout_height="100dp"
+                        android:id="@+id/join_queue"
                         style="?android:borderlessButtonStyle"
-                        />
+                        android:layout_width="94dp"
+                        android:layout_height="100dp"
+                        android:src="@drawable/join_groups" />
                     <TextView
                         android:layout_marginTop="12dp"
                         android:textColor="#6f6f6f"
                         android:textSize="18sp"
-                        android:text="Join group"
+                        android:text="Join queue"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"/>
                 </LinearLayout>
@@ -130,7 +132,7 @@
                     android:layout_height="match_parent"
                     >
                     <ImageView
-                        android:id="@+id/my_groups_view"
+                        android:id="@+id/my_queues"
                         android:src="@drawable/user_groups"
                         android:layout_width="100dp"
                         android:layout_height="100dp"
@@ -139,7 +141,7 @@
                         android:layout_marginTop="12dp"
                         android:textColor="#6f6f6f"
                         android:textSize="18sp"
-                        android:text="My groups"
+                        android:text="My queues"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"/>
                 </LinearLayout>
@@ -162,7 +164,7 @@
                     android:layout_height="match_parent"
                     >
                     <ImageView
-                        android:id="@+id/create_group_bt"
+                        android:id="@+id/create_queue"
                         android:src="@drawable/create_group"
                         android:layout_width="100dp"
                         android:layout_height="100dp"
@@ -171,7 +173,7 @@
                         android:layout_marginTop="12dp"
                         android:textColor="#6F6F6F"
                         android:textSize="18sp"
-                        android:text="Create group"
+                        android:text="Create queue"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"/>
                 </LinearLayout>

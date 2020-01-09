@@ -23,11 +23,10 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-import java.io.Serializable;
 
-public class LoginActivity extends AppCompatActivity implements Serializable {
+public class LoginActivity extends AppCompatActivity{
 
-    public EditText email,psw;
+    EditText email,psw;
     Button loginbt, signupbt;
     SignInButton googlesign;
     FirebaseAuth mFire ;
@@ -43,6 +42,7 @@ public class LoginActivity extends AppCompatActivity implements Serializable {
         mFire = FirebaseAuth.getInstance(); 
         email = findViewById(R.id.emailtext);
         psw = findViewById(R.id.passwordtext);
+
         loginbt = findViewById(R.id.loginbt);
         signupbt = findViewById(R.id.signupbt);
 
@@ -78,7 +78,7 @@ public class LoginActivity extends AppCompatActivity implements Serializable {
                     psw.setError("Please enter your password");
                     psw.requestFocus();
                 }
-                else if(emailid.isEmpty() && pssw.isEmpty()){
+                else if(emailid.isEmpty() && pssw.isEmpty() ){
                     Toast.makeText(LoginActivity.this,"Fields are empty",Toast.LENGTH_SHORT).show();
                 }
                 else if (!(emailid.isEmpty() && pssw.isEmpty())){
@@ -91,8 +91,7 @@ public class LoginActivity extends AppCompatActivity implements Serializable {
                                 Toast.makeText(LoginActivity.this, "Login Error, Please login again", Toast.LENGTH_SHORT).show();
 
                             } else {
-                                Intent intohome = new Intent(LoginActivity.this, ChooseAthorithyActivity.class);
-                                intohome.putExtra("email",email.getText().toString());
+                                Intent intohome = new Intent(LoginActivity.this, SelectModeActivity.class);
                                 startActivity(intohome);
                             }
                         }
@@ -108,61 +107,10 @@ public class LoginActivity extends AppCompatActivity implements Serializable {
          signupbt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String emailid = email.getText().toString();
-                String pssw = psw.getText().toString();
-                if(emailid.isEmpty()){
-                    email.setError("Please enter email");
-                    email.requestFocus();
-                }
-                if(pssw.isEmpty()){
-                    psw.setError("Please enter your password");
-                    psw.requestFocus();
-                }
-                else if(emailid.isEmpty() && pssw.isEmpty()){
-                    Toast.makeText(LoginActivity.this,"Fields are empty",Toast.LENGTH_SHORT).show();
-                }
-                else if (!(emailid.isEmpty() && pssw.isEmpty())){
-                    mFire.createUserWithEmailAndPassword(emailid,pssw).addOnCompleteListener(LoginActivity.this, new OnCompleteListener<AuthResult>() {
-                        @Override
-                        public void onComplete(@NonNull Task<AuthResult> task) {
-                            if(!task.isSuccessful()){
-                                Toast.makeText(LoginActivity.this,"SignUp Unsuccessful,Please try again",Toast.LENGTH_SHORT).show();
-                            }
-                            else{
-                                Intent intohome = new Intent(LoginActivity.this, ChooseAthorithyActivity.class);
-                                intohome.putExtra("email",email.getText().toString());
-                                startActivity(intohome);
-                            }
-                        }
-                    });
-                }
-                else{
-                    Toast.makeText(LoginActivity.this,"Error Occurred!",Toast.LENGTH_SHORT).show();
-                }
-
+                Intent tosignup = new Intent(LoginActivity.this, SignUpActivity.class);
+                startActivity(tosignup);
             }
         });
-
-        mFireLis = new FirebaseAuth.AuthStateListener() {
-
-            @Override
-            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-
-                FirebaseUser firebase = mFire.getCurrentUser();
-                if(firebase != null ){
-                    Toast.makeText(LoginActivity.this,"You are logged in!",Toast.LENGTH_SHORT).show();
-                    Intent i = new Intent(LoginActivity.this, ChooseAthorithyActivity.class);
-                    i.putExtra("email",email.getText().toString());
-                    startActivity(i);
-                }
-                else {
-                    Toast.makeText(LoginActivity.this,"Please log in!",Toast.LENGTH_SHORT).show();
-
-                }
-            }
-        };
-
-
     }
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -182,7 +130,7 @@ public class LoginActivity extends AppCompatActivity implements Serializable {
 
             // Signed in successfully, show authenticated UI.
             //updateUI(account);
-            Intent tochoose = new Intent(this,ChooseAthorithyActivity.class);
+            Intent tochoose = new Intent(this, SelectModeActivity.class);
             startActivity(tochoose);
         } catch (ApiException e) {
             // The ApiException status code indicates the detailed failure reason.
@@ -195,22 +143,24 @@ public class LoginActivity extends AppCompatActivity implements Serializable {
         startActivityForResult(signInIntent, RC_SIGN_IN);
     }
 
+//    @Override
+//    protected void onStart() {
+//        super.onStart();
+//        mFire.addAuthStateListener(mFireLis);
+//    }
+
     @Override
-    protected void onStart() {
+    public void onStart() {
         super.onStart();
-        mFire.addAuthStateListener(mFireLis);
+        // Check if user is signed in (non-null) and update UI accordingly.
+        FirebaseUser currentUser = mFire.getCurrentUser();
     }
     @Override
     public void onBackPressed() {
 
       super.onBackPressed();
         finishAffinity();
-    // Not calling **super**, disables back button in current screen.
+    // Not calling **super**, disables back_ground button in current screen.
     }
-//    @Override
-//    public void onDestroy()
-//    {
-//        android.os.Process.killProcess(android.os.Process.myPid());
-//        super.onDestroy();
-//    }
+
 }
