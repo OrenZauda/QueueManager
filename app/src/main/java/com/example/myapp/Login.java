@@ -24,7 +24,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 
-public class LoginActivity extends AppCompatActivity{
+public class Login extends AppCompatActivity{
 
     EditText email,psw;
     Button loginbt, signupbt;
@@ -79,26 +79,26 @@ public class LoginActivity extends AppCompatActivity{
                     psw.requestFocus();
                 }
                 else if(emailid.isEmpty() && pssw.isEmpty() ){
-                    Toast.makeText(LoginActivity.this,"Fields are empty",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Login.this,"Fields are empty",Toast.LENGTH_SHORT).show();
                 }
                 else if (!(emailid.isEmpty() && pssw.isEmpty())){
 
 
-                    mFire.signInWithEmailAndPassword(emailid,pssw).addOnCompleteListener(LoginActivity.this, new OnCompleteListener<AuthResult>() {
+                    mFire.signInWithEmailAndPassword(emailid,pssw).addOnCompleteListener(Login.this, new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (!task.isSuccessful()) {
-                                Toast.makeText(LoginActivity.this, "Login Error, Please login again", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(Login.this, "Login Error, Please login again", Toast.LENGTH_SHORT).show();
 
                             } else {
-                                Intent intohome = new Intent(LoginActivity.this, SelectModeActivity.class);
+                                Intent intohome = new Intent(Login.this, SelectMode.class);
                                 startActivity(intohome);
                             }
                         }
                     });
                 }
                 else{
-                    Toast.makeText(LoginActivity.this,"Error Occurred!",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Login.this,"Error Occurred!",Toast.LENGTH_SHORT).show();
                 }
 
             }
@@ -107,7 +107,7 @@ public class LoginActivity extends AppCompatActivity{
          signupbt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent tosignup = new Intent(LoginActivity.this, SignUpActivity.class);
+                Intent tosignup = new Intent(Login.this, SignUp.class);
                 startActivity(tosignup);
             }
         });
@@ -130,7 +130,7 @@ public class LoginActivity extends AppCompatActivity{
 
             // Signed in successfully, show authenticated UI.
             //updateUI(account);
-            Intent tochoose = new Intent(this, SelectModeActivity.class);
+            Intent tochoose = new Intent(this, SelectMode.class);
             startActivity(tochoose);
         } catch (ApiException e) {
             // The ApiException status code indicates the detailed failure reason.
@@ -143,17 +143,12 @@ public class LoginActivity extends AppCompatActivity{
         startActivityForResult(signInIntent, RC_SIGN_IN);
     }
 
-//    @Override
-//    protected void onStart() {
-//        super.onStart();
-//        mFire.addAuthStateListener(mFireLis);
-//    }
-
     @Override
     public void onStart() {
         super.onStart();
         // Check if user is signed in (non-null) and update UI accordingly.
         FirebaseUser currentUser = mFire.getCurrentUser();
+
     }
     @Override
     public void onBackPressed() {

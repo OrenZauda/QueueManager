@@ -18,7 +18,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
 
-public class SignUpActivity extends AppCompatActivity {
+public class SignUp extends AppCompatActivity {
     Button signupbt ;
     EditText email,psw,nick_name;
     private FirebaseAuth mAuth;
@@ -51,18 +51,18 @@ public class SignUpActivity extends AppCompatActivity {
                     psw.requestFocus();
                 }
                 if(nickName.isEmpty()){
-                    psw.setError("Please enter your nick name");
-                    psw.requestFocus();
+                    nick_name.setError("Please enter your nick name");
+                    nick_name.requestFocus();
                 }
                 else if(emailid.isEmpty() && pssw.isEmpty() && nickName.isEmpty()){
-                    Toast.makeText(SignUpActivity.this,"Fields are empty",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(SignUp.this,"Fields are empty",Toast.LENGTH_SHORT).show();
                 }
                 else if (!(emailid.isEmpty() && pssw.isEmpty() && nickName.isEmpty())){
-                    mAuth.createUserWithEmailAndPassword(emailid,pssw).addOnCompleteListener(SignUpActivity.this, new OnCompleteListener<AuthResult>() {
+                    mAuth.createUserWithEmailAndPassword(emailid,pssw).addOnCompleteListener(SignUp.this, new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if(!task.isSuccessful()){
-                                Toast.makeText(SignUpActivity.this,"SignUpActivity Unsuccessful,Please try again",Toast.LENGTH_SHORT).show();
+                                Toast.makeText(SignUp.this,"SignUp Unsuccessful,Please try again",Toast.LENGTH_SHORT).show();
                             }
                             else{
                                 FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
@@ -79,14 +79,14 @@ public class SignUpActivity extends AppCompatActivity {
                                                 }
                                             }
                                         });
-                                Intent intohome = new Intent(SignUpActivity.this, SelectModeActivity.class);
-                                startActivity(intohome);
+                                Intent toSelectMode = new Intent(SignUp.this, SelectMode.class);
+                                startActivity(toSelectMode);
                             }
                         }
                     });
                 }
                 else{
-                    Toast.makeText(SignUpActivity.this,"Error Occurred!",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(SignUp.this,"Error Occurred!",Toast.LENGTH_LONG).show();
                 }
 
             }

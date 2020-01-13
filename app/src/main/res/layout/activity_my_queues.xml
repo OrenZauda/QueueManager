@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MyQueues">
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <RelativeLayout
+            android:background="@color/signupColor"
+            android:layout_width="match_parent"
+            android:layout_height="100dp">
+
+            <ImageView
+                android:layout_marginLeft="20dp"
+                style="?android:borderlessButtonStyle"
+                android:id="@+id/btback"
+                android:layout_width="62dp"
+                android:layout_height="62dp"
+                android:src="@drawable/back_web"
+                android:layout_centerVertical="true"
+                android:padding="0dp"
+                />
+
+            <TextView
+                android:layout_centerInParent="true"
+                android:id="@+id/textgroup"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:text="Your list queues"
+                android:textSize="24dp" />
+
+        </RelativeLayout>
+
+
+        <ListView
+            android:id="@+id/mylist"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            >
+
+        </ListView>
+
+
+    </LinearLayout>
+
+</RelativeLayout>
+
+

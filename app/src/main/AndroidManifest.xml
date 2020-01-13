@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.myapp">
+
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
@@ -11,23 +12,24 @@
         android:roundIcon="@mipmap/my_logo_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
-        <activity android:name=".SignUpActivity"></activity>
+        <activity android:name=".MyQueues"></activity>
+        <activity android:name=".SignUp" />
         <activity
-            android:name=".SplashScreenActivity"
+            android:name=".SplashScreen"
             android:theme="@style/SplashScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".dashboardActivity" />
+        <activity android:name=".dashboard" />
         <activity android:name=".usergroupviewActivty" />
-        <activity android:name=".Managergroupslist" />
-        <activity android:name=".JoinQueueActivity" />
-        <activity android:name=".CreateQueueActivity" />
-        <activity android:name=".SelectModeActivity" />
-        <activity android:name=".LoginActivity" />
+        <activity android:name=".Managerqueueslist" />
+        <activity android:name=".JoinQueue" />
+        <activity android:name=".CreateQueue" />
+        <activity android:name=".SelectMode" />
+        <activity android:name=".Login" />
     </application>
 
 </manifest>

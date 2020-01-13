@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".CreateQueueActivity">
+    tools:context=".CreateQueue">
 
 <LinearLayout
     android:background="@mipmap/android_backgroundchart"
@@ -41,7 +41,7 @@
     </RelativeLayout>
 
     <RelativeLayout
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="10dp"
         android:layout_gravity="center"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
@@ -55,7 +55,7 @@
                 android:background="@drawable/shapegroupname"
                 android:padding="15dp"
                 android:layout_margin="10dp"
-                android:id="@+id/group_name"
+                android:id="@+id/queue_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="queue name"
@@ -89,7 +89,7 @@
                 android:layout_marginLeft="68dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/radiogoup"
+                android:id="@+id/radio_group"
                 android:layout_marginBottom="20dp"
                 >
 

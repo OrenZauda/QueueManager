@@ -2,6 +2,7 @@ package com.example.myapp;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -21,11 +22,12 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-public class dashboardActivity extends AppCompatActivity {
+public class dashboard extends AppCompatActivity {
     ImageView person_image,log_out, my_queues,back, create_queue, join_queue;
-    TextView user_name, user_mode_text;
+    TextView user_name, user_mode_text,create_text,text_logout;
+    CardView create_card,card_logout;
     GoogleSignInClient mGoogleSignInClient;
-    String personName,personGivenName,personFamilyName ,fname;
+    String personName,personGivenName,personFamilyName ="" ;
     boolean manager_mode;
 
 
@@ -34,6 +36,10 @@ public class dashboardActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
 
+        text_logout = findViewById(R.id.text_logout);
+        card_logout = findViewById(R.id.card_logout);
+        create_text=findViewById(R.id.create_text);
+        create_card = findViewById(R.id.create_card);
         join_queue = findViewById(R.id.join_queue);
         create_queue = findViewById(R.id.create_queue);
         manager_mode = (boolean)getIntent().getSerializableExtra("manager_mode");
@@ -51,8 +57,10 @@ public class dashboardActivity extends AppCompatActivity {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if (user != null) {
             // Name, email address, and profile photo Url
-            fname = user.getDisplayName();
+            personGivenName = user.getDisplayName();
+            user_name.setText(personGivenName);
         }
+
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()
@@ -62,10 +70,11 @@ public class dashboardActivity extends AppCompatActivity {
         log_out.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                FirebaseAuth.getInstance().signOut();
                 switch (v.getId()) {
                     case R.id.log_out:
                         signOut();
-                        Intent tologin = new Intent(dashboardActivity.this,LoginActivity.class);
+                        Intent tologin = new Intent(dashboard.this, Login.class);
                         startActivity(tologin);
                         break;
                 }
@@ -81,46 +90,47 @@ public class dashboardActivity extends AppCompatActivity {
             Glide.with(this).load(String.valueOf(personPhoto)).into(person_image);
             user_name.setText(personGivenName +" "+personFamilyName);
         }
-        else{
-            user_name.setText(fname);
-        }
+
         my_queues = findViewById(R.id.my_queues);
         my_queues.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(manager_mode){
-                    Intent toanangergroup = new Intent(dashboardActivity.this,Managergroupslist.class);
-                    startActivity(toanangergroup);
-                }
-                else{
-
-                }
-
+                    Intent toMyQueues= new Intent(dashboard.this, MyQueues.class);
+                    toMyQueues.putExtra("manager mode",manager_mode);
+                    startActivity(toMyQueues);
             }
         });
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent toselectmode = new Intent(dashboardActivity.this, SelectModeActivity.class);
+                Intent toselectmode = new Intent(dashboard.this, SelectMode.class);
                 startActivity(toselectmode);
             }
         });
+
+        if(!manager_mode) {
+            create_queue.setVisibility(View.GONE);
+            create_card.setVisibility(View.GONE);
+            create_text.setVisibility(View.GONE);
+        }
+
         create_queue.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(manager_mode){
-                    Intent manageractivity = new Intent(dashboardActivity.this, CreateQueueActivity.class);
+                    Intent manageractivity = new Intent(dashboard.this, CreateQueue.class);
                     startActivity(manageractivity);
                 }
-                else{
-                    Toast.makeText(dashboardActivity.this,"valid only in manger mode",Toast.LENGTH_LONG).show();
-                }
+//                else{
+//                    create_queue
+//                    //Toast.makeText(dashboard.this,"valid only in manger mode",Toast.LENGTH_LONG).show();
+//                }
             }
         });
         join_queue.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent toGroupsView = new Intent(dashboardActivity.this, JoinQueueActivity.class);
+                Intent toGroupsView = new Intent(dashboard.this, JoinQueue.class);
                 startActivity(toGroupsView);
             }
         });
@@ -133,7 +143,7 @@ public class dashboardActivity extends AppCompatActivity {
                 .addOnCompleteListener(this, new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
-                        Toast.makeText(dashboardActivity.this,"signed out successfuly",Toast.LENGTH_LONG).show();
+                        Toast.makeText(dashboard.this,"signed out successfuly",Toast.LENGTH_LONG).show();
                         finish();
                     }
                 });

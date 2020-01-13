@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@drawable/bgapps"
-    tools:context=".dashboardActivity"
+    tools:context=".dashboard"
     >
 
     <LinearLayout
@@ -148,6 +148,7 @@
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
+                android:id="@+id/create_card"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_columnWeight="1"
@@ -170,6 +171,7 @@
                         android:layout_height="100dp"
                         style="?android:borderlessButtonStyle"/>
                     <TextView
+                        android:id="@+id/create_text"
                         android:layout_marginTop="12dp"
                         android:textColor="#6F6F6F"
                         android:textSize="18sp"
@@ -187,6 +189,7 @@
                 app:cardElevation="6dp"
                 app:cardCornerRadius="12dp"
                 android:layout_margin="12dp"
+                android:id="@+id/card_logout"
                 >
                 <LinearLayout
                     android:orientation="vertical"
@@ -202,6 +205,7 @@
                         android:layout_height="100dp"
                         style="?android:borderlessButtonStyle"/>
                     <TextView
+                        android:id="@+id/text_logout"
                         android:layout_marginTop="12dp"
                         android:textColor="#6f6f6f"
                         android:textSize="18sp"

@@ -4,7 +4,6 @@ package com.example.myapp;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -14,7 +13,6 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -24,6 +22,7 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -41,9 +40,7 @@ public class usergroupviewActivty extends AppCompatActivity {
     String queuename;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     ArrayAdapter<String> adapter;
-    FirebaseAuth mFire ;
-    String docpath ,personGivenName,personFamilyName;
-    String email;
+    String docpath ,personGivenName,personFamilyName ="";
     ArrayList<String> users;
     GoogleSignInClient mGoogleSignInClient;
 
@@ -64,7 +61,12 @@ public class usergroupviewActivty extends AppCompatActivity {
             personFamilyName = acct.getFamilyName();
 
         }
-        //email = (String)getIntent().getSerializableExtra("email");
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user != null) {
+            // Name, email address, and profile photo Url
+            personGivenName = user.getDisplayName();
+        }
+
         users = new ArrayList<>();
         mylist = findViewById(R.id.mylist);
         queuenametext = findViewById(R.id.queuename);
@@ -72,67 +74,81 @@ public class usergroupviewActivty extends AppCompatActivity {
         queuename = (String)getIntent().getSerializableExtra("queuename");
         queuenametext.setText(queuename);
         entergroup = findViewById(R.id.entergroup);
-        db.collection("queues")
+
+
+        //show current queue list view
+         db.collection(queuename)
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
 
+                        if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
-                                if(queuename.equals(document.getData().get("queuename").toString())){
-                                    users = (ArrayList<String>)document.getData().get("arraylist");
-                                    docpath= document.getId();
-
-                                }
-
+                                Log.d("my log", document.getId() + " => " + document.getData());
+                                users = (ArrayList<String>)document.getData().get("arraylist");
+                                docpath= document.getId();
+                                adapter = new ArrayAdapter<String>(usergroupviewActivty.this,android.R.layout.simple_list_item_1,users);
+                                mylist.setAdapter(adapter);
                             }
+                        } else {
+                            Log.d("my log", "Error getting documents: ", task.getException());
+                        }
 
-                        adapter = new ArrayAdapter<String>(usergroupviewActivty.this,android.R.layout.simple_list_item_1,users);
-                        mylist.setAdapter(adapter);
+
                     }
+
+
+
                 });
+
         entergroup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final DocumentReference sfDocRef = db.collection("queues").document(docpath);
+                final DocumentReference sfDocRef = db.collection(queuename).document(docpath);
+                if(!(users.contains(personGivenName+" "+personFamilyName))) {
+                    db.runTransaction(new Transaction.Function<Void>() {
+                        @Override
+                        public Void apply(Transaction transaction) throws FirebaseFirestoreException {
+                            DocumentSnapshot snapshot = transaction.get(sfDocRef);
 
-                db.runTransaction(new Transaction.Function<Void>() {
-                    @Override
-                    public Void apply(Transaction transaction) throws FirebaseFirestoreException{
-                        DocumentSnapshot snapshot = transaction.get(sfDocRef);
+                            ArrayList<String> playres = (ArrayList<String>) snapshot.getData().get("arraylist");
 
-                        ArrayList<String> playres = (ArrayList<String> )snapshot.getData().get("arraylist");
-                        if(!(playres.contains(email))) {
-                            playres.add(personGivenName+" "+personFamilyName);
-                            users = playres;
-                            transaction.update(sfDocRef, "arraylist", playres);
+                                playres.add(personGivenName+ " " +personFamilyName);
+                                users = playres;
+                                transaction.update(sfDocRef, "arraylist", playres);
+
+                            return null;
+
 
                         }
-                        else{
-                            Toast.makeText(usergroupviewActivty.this,"Your already in group",Toast.LENGTH_LONG);
+                    }).addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                            mylist.setAdapter(null);
+                            adapter = new ArrayAdapter<String>(usergroupviewActivty.this, android.R.layout.simple_list_item_1, users);
+                            mylist.setAdapter(adapter);
+                            Log.d("mylog", "Transaction success!");
                         }
-                        // Success
-                        return null;
-                        
+                    })
+                            .addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Log.w("mylog", "Transaction failure.", e);
+                                }
+                            });
+                }
+                else{
+                    Toast.makeText(usergroupviewActivty.this, "Your already in queue", Toast.LENGTH_LONG).show();
 
+                }
 
-                    }
-                }).addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void aVoid) {
-                        mylist.setAdapter(null);
-                        adapter = new ArrayAdapter<String>(usergroupviewActivty.this,android.R.layout.simple_list_item_1,users);
-                        mylist.setAdapter(adapter);
-                        Log.d("mylog", "Transaction success!");
-                    }
-                })
-                        .addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception e) {
-                                Log.w("mylog", "Transaction failure.", e);
-                            }
-                        });
+            }
+        });
 
+        leave.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
             }
         });

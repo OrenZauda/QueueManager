@@ -18,7 +18,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 
-public class SelectModeActivity extends AppCompatActivity {
+public class SelectMode extends AppCompatActivity {
     GoogleSignInClient mGoogleSignInClient;
     Button blogout ;
     ImageView manger_mode,participate_mode,log_out;
@@ -46,10 +46,9 @@ public class SelectModeActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 manager_mode = true;
-                Intent tomangerscr = new Intent(SelectModeActivity.this,dashboardActivity.class);
-                tomangerscr.putExtra("manager_mode",manager_mode);
-                tomangerscr.putExtra("nick name",nickName);
-                startActivity(tomangerscr);
+                Intent toDashBoard = new Intent(SelectMode.this, dashboard.class);
+                toDashBoard.putExtra("manager_mode",manager_mode);
+                startActivity(toDashBoard);
             }
         });
 
@@ -57,9 +56,8 @@ public class SelectModeActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 manager_mode = false;
-                Intent toplayerscr = new Intent(SelectModeActivity.this,dashboardActivity.class);
+                Intent toplayerscr = new Intent(SelectMode.this, dashboard.class);
                 toplayerscr.putExtra("manager_mode",manager_mode);
-                toplayerscr.putExtra("nick name",nickName);
                 startActivity(toplayerscr);
             }
         });
@@ -67,6 +65,19 @@ public class SelectModeActivity extends AppCompatActivity {
 
 
         log_out = findViewById(R.id.log_out);
+        log_out.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FirebaseAuth.getInstance().signOut();
+                switch (v.getId()) {
+                    case R.id.log_out:
+                        signOut();
+                        Intent tologin = new Intent(SelectMode.this, Login.class);
+                        startActivity(tologin);
+                        break;
+                }
+            }
+        });
 //        log_out.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {
@@ -74,11 +85,11 @@ public class SelectModeActivity extends AppCompatActivity {
 //                switch (v.getId()) {
 //                    case R.id.logoutbt:
 //                        signOut();
-//                        Intent tologin = new Intent(SelectModeActivity.this,LoginActivity.class);
+//                        Intent tologin = new Intent(SelectMode.this,Login.class);
 //                        startActivity(tologin);
 //                        break;
 //                }
-//                Intent intomain = new Intent(SelectModeActivity.this, LoginActivity.class);
+//                Intent intomain = new Intent(SelectMode.this, Login.class);
 //                startActivity(intomain);
 //            }
 //        });
@@ -94,7 +105,7 @@ public class SelectModeActivity extends AppCompatActivity {
                 .addOnCompleteListener(this, new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
-                        Toast.makeText(SelectModeActivity.this,"signed out successfuly",Toast.LENGTH_LONG).show();
+                        Toast.makeText(SelectMode.this,"signed out successfuly",Toast.LENGTH_LONG).show();
                         finish();
                     }
                 });

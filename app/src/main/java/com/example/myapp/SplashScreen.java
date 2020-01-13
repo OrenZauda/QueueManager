@@ -6,10 +6,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 
-public class SplashScreenActivity extends AppCompatActivity {
+public class SplashScreen extends AppCompatActivity {
 
 
-    private long splashTime  = 2000L ;//2s
+    private long splashTime  = 1500L ;//1.5s
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -18,7 +18,7 @@ public class SplashScreenActivity extends AppCompatActivity {
             @Override
             public void run() {
                 /* Create an Intent that will start the Menu-Activity. */
-                Intent toselectmode = new Intent(SplashScreenActivity.this,LoginActivity.class);
+                Intent toselectmode = new Intent(SplashScreen.this, Login.class);
                 startActivity(toselectmode);
                 finish();
             }
