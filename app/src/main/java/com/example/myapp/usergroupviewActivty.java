@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -36,7 +37,7 @@ import java.util.ArrayList;
 public class usergroupviewActivty extends AppCompatActivity {
     ListView mylist;
     TextView queuenametext;
-    Button leave,entergroup;
+    ImageView leavebt,entergroup;
     String queuename;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     ArrayAdapter<String> adapter;
@@ -70,10 +71,10 @@ public class usergroupviewActivty extends AppCompatActivity {
         users = new ArrayList<>();
         mylist = findViewById(R.id.mylist);
         queuenametext = findViewById(R.id.queuename);
-        leave = findViewById(R.id.leavebt);
+        leavebt = findViewById(R.id.leavebt);
         queuename = (String)getIntent().getSerializableExtra("queuename");
         queuenametext.setText(queuename);
-        entergroup = findViewById(R.id.entergroup);
+        entergroup = findViewById(R.id.enter_queue);
 
 
         //show current queue list view
@@ -146,7 +147,7 @@ public class usergroupviewActivty extends AppCompatActivity {
             }
         });
 
-        leave.setOnClickListener(new View.OnClickListener() {
+        leavebt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
