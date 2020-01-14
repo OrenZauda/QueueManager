@@ -5,63 +5,64 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".JoinQueue">
 
-
     <LinearLayout
-        android:orientation="vertical"
+        android:id="@+id/topbar"
+        android:orientation="horizontal"
+        android:background="@color/colorPrimary"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
+        <ImageView
+            android:layout_marginLeft="15dp"
+            style="?android:borderlessButtonStyle"
+            android:id="@+id/btback"
+            android:layout_width="62dp"
+            android:layout_height="match_parent"
+            android:src="@drawable/back_web"
+            android:layout_centerVertical="true"
+            android:padding="0pt"
+            />
 
-        <RelativeLayout
-            android:background="@color/colorPrimary"
+        <LinearLayout
+            android:layout_margin="15dp"
+            android:gravity="center"
+            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="100dp">
-
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/queuename"
+                android:textColor="@color/white"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Select queue"
+                android:textSize="24dp" />
             <SearchView
-                android:layout_centerHorizontal="true"
-                android:layout_below="@+id/text"
+                android:layout_below="@+id/queuename"
                 android:id="@+id/searchview"
                 android:iconifiedByDefault="false"
-                android:layout_width="228dp"
+                android:layout_width="match_parent"
                 android:layout_height="45dp"
                 android:queryHint="Search for queue"
                 android:background="@drawable/shapeemail"
                 />
-            <TextView
-                android:layout_marginTop="20dp"
-                android:layout_centerHorizontal="true"
-                android:id="@+id/text"
-                android:textColor="@color/white"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Choose queue"
-                android:textSize="24dp" />
-
-            <ImageView
-                android:layout_marginLeft="20dp"
-                style="?android:borderlessButtonStyle"
-                android:id="@+id/btback"
-                android:layout_width="62dp"
-                android:layout_height="62dp"
-                android:src="@drawable/back_web"
-                android:layout_centerVertical="true"
-                android:padding="0pt"
-                />
-
-        </RelativeLayout>
 
 
-        <ListView
-            android:id="@+id/mylist"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/list_view_border"
-            android:divider="@color/colorPrimaryDark"
-            android:dividerHeight="2dp">
-
-        </ListView>
-
+        </LinearLayout>
     </LinearLayout>
+
+    <ListView
+        android:layout_below="@+id/topbar"
+        android:id="@+id/mylist"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/list_view_border"
+        android:divider="@color/colorPrimaryDark"
+        android:dividerHeight="2dp">
+
+    </ListView>
+
+
+
 
 
 </RelativeLayout>

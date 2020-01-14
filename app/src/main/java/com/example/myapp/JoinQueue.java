@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SearchView;
 
@@ -24,6 +25,7 @@ import java.util.ArrayList;
 public class JoinQueue extends AppCompatActivity {
 
     ArrayAdapter<String> adapter;
+    ImageView back_bt;
     ListView mylist ;
     ArrayList<String> doc = new ArrayList<>();
     FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -36,8 +38,7 @@ public class JoinQueue extends AppCompatActivity {
         searchView = findViewById(R.id.searchview);
         searchView.setFocusable(false);
         mylist = findViewById(R.id.mylist);
-
-
+        back_bt = findViewById(R.id.btback);
 
         doc.clear();
         mylist.setAdapter(null);
@@ -72,6 +73,14 @@ public class JoinQueue extends AppCompatActivity {
                 Intent tousergroup = new Intent(JoinQueue.this,usergroupviewActivty.class);
                 tousergroup.putExtra("queuename",mylist.getItemAtPosition(position).toString());
                 startActivity(tousergroup);
+            }
+        });
+
+        back_bt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent toDashBoard = new Intent(JoinQueue.this,dashboard.class);
+                startActivity(toDashBoard);
             }
         });
     }

@@ -12,7 +12,8 @@
         android:roundIcon="@mipmap/my_logo_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MyQueues"></activity>
+        <activity android:name=".UserImage"></activity>
+        <activity android:name=".MyQueues" />
         <activity android:name=".SignUp" />
         <activity
             android:name=".SplashScreen"

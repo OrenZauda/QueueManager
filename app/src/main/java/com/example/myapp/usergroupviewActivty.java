@@ -4,11 +4,11 @@ package com.example.myapp;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -37,7 +37,7 @@ import java.util.ArrayList;
 public class usergroupviewActivty extends AppCompatActivity {
     ListView mylist;
     TextView queuenametext;
-    ImageView leavebt,entergroup;
+    ImageView leavebt,entergroup,back_bt;
     String queuename;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     ArrayAdapter<String> adapter;
@@ -68,6 +68,7 @@ public class usergroupviewActivty extends AppCompatActivity {
             personGivenName = user.getDisplayName();
         }
 
+        back_bt = findViewById(R.id.btback);
         users = new ArrayList<>();
         mylist = findViewById(R.id.mylist);
         queuenametext = findViewById(R.id.queuename);
@@ -151,6 +152,13 @@ public class usergroupviewActivty extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
+            }
+        });
+        back_bt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent toChooseQueue = new Intent(usergroupviewActivty.this,JoinQueue.class);
+                startActivity(toChooseQueue);
             }
         });
 

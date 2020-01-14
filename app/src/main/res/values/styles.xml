@@ -11,4 +11,7 @@
 
         <item name="android:windowBackground">@drawable/background_splashscreen</item>
     </style>
+    <style name="MaterialAnimations" parent="@style/Theme.AppCompat.Light.NoActionBar">
+        <item name="android:windowContentTransitions">true</item>
+    </style>
 </resources>

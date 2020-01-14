@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
+import android.app.ActivityOptions;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -48,46 +49,34 @@ public class dashboard extends AppCompatActivity {
         user_name = findViewById(R.id.user_name);
         person_image = findViewById(R.id.personimage);
         log_out = findViewById(R.id.log_out);
+        //get fire base user account
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        //get google user account
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestEmail()
+                .build();
 
+        mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
+        GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(this);
 
         if(manager_mode){ user_mode_text.setText("Manager\nmode"); }
         else{ user_mode_text.setText("Participant\nmode");}
 
-
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        //get fire base  user information
         if (user != null) {
             // Name, email address, and profile photo Url
             personGivenName = user.getDisplayName();
             user_name.setText(personGivenName);
         }
 
-
-        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestEmail()
-                .build();
-
-        mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
-        log_out.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                FirebaseAuth.getInstance().signOut();
-                switch (v.getId()) {
-                    case R.id.log_out:
-                        signOut();
-                        Intent tologin = new Intent(dashboard.this, Login.class);
-                        startActivity(tologin);
-                        break;
-                }
-            }
-        });
-
-        GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(this);
-        if (acct != null) {
+        //get google user  account information
+        else if (acct != null) {
             personName = acct.getDisplayName();
             personGivenName = acct.getGivenName();
             personFamilyName = acct.getFamilyName();
             Uri personPhoto = acct.getPhotoUrl();
             Glide.with(this).load(String.valueOf(personPhoto)).into(person_image);
+            person_image.setImageURI(personPhoto);
             user_name.setText(personGivenName +" "+personFamilyName);
         }
 
@@ -117,14 +106,11 @@ public class dashboard extends AppCompatActivity {
         create_queue.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(manager_mode){
+
                     Intent manageractivity = new Intent(dashboard.this, CreateQueue.class);
                     startActivity(manageractivity);
-                }
-//                else{
-//                    create_queue
-//                    //Toast.makeText(dashboard.this,"valid only in manger mode",Toast.LENGTH_LONG).show();
-//                }
+
+
             }
         });
         join_queue.setOnClickListener(new View.OnClickListener() {
@@ -134,7 +120,38 @@ public class dashboard extends AppCompatActivity {
                 startActivity(toGroupsView);
             }
         });
+        person_image.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent toUserImage = new Intent(dashboard.this,UserImage.class);
+                startActivity(toUserImage);
+            }
+        });
+        person_image.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(dashboard.this, UserImage.class);
 
+                View sharedView = person_image;
+                String transitionName = "small image";
+
+                ActivityOptions transitionActivityOptions = ActivityOptions.makeSceneTransitionAnimation(dashboard.this, sharedView, transitionName);
+                startActivity(i, transitionActivityOptions.toBundle());
+            }
+        });
+        log_out.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FirebaseAuth.getInstance().signOut();
+                switch (v.getId()) {
+                    case R.id.log_out:
+                        signOut();
+                        Intent tologin = new Intent(dashboard.this, Login.class);
+                        startActivity(tologin);
+                        break;
+                }
+            }
+        });
 
     }
 
