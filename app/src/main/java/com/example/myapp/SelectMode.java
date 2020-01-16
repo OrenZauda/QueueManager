@@ -28,6 +28,7 @@ public class SelectMode extends AppCompatActivity {
     String nickName;
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,9 +47,9 @@ public class SelectMode extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 manager_mode = true;
-                Intent toDashBoard = new Intent(SelectMode.this, dashboard.class);
-                toDashBoard.putExtra("manager_mode",manager_mode);
-                startActivity(toDashBoard);
+                Intent todashboard = new Intent(SelectMode.this, dashboard.class);
+                todashboard.putExtra("manager_mode",manager_mode);
+                startActivity(todashboard);
             }
         });
 
@@ -56,9 +57,9 @@ public class SelectMode extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 manager_mode = false;
-                Intent toplayerscr = new Intent(SelectMode.this, dashboard.class);
-                toplayerscr.putExtra("manager_mode",manager_mode);
-                startActivity(toplayerscr);
+                Intent todashboard = new Intent(SelectMode.this, dashboard.class);
+                todashboard.putExtra("manager_mode",manager_mode);
+                startActivity(todashboard);
             }
         });
 
@@ -78,26 +79,6 @@ public class SelectMode extends AppCompatActivity {
                 }
             }
         });
-//        log_out.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                FirebaseAuth.getInstance().signOut();
-//                switch (v.getId()) {
-//                    case R.id.logoutbt:
-//                        signOut();
-//                        Intent tologin = new Intent(SelectMode.this,Login.class);
-//                        startActivity(tologin);
-//                        break;
-//                }
-//                Intent intomain = new Intent(SelectMode.this, Login.class);
-//                startActivity(intomain);
-//            }
-//        });
-
-
-
-
-
 
     }
     private void signOut() {

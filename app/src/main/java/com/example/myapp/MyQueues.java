@@ -9,7 +9,9 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.SearchView;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -26,6 +28,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.util.ArrayList;
 
 public class MyQueues extends AppCompatActivity {
+    ImageView btback;
     ArrayAdapter<String> adapter;
     ListView mylist ;
     ArrayList<String> doc = new ArrayList<>();
@@ -34,6 +37,7 @@ public class MyQueues extends AppCompatActivity {
     GoogleSignInClient mGoogleSignInClient;
     String personName,personGivenName,personFamilyName ="" ;
     boolean manager_mode;
+    SearchView searchView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +45,8 @@ public class MyQueues extends AppCompatActivity {
         setContentView(R.layout.activity_my_queues);
 
         mylist = findViewById(R.id.mylist);
+        btback = findViewById(R.id.btback);
+        searchView = findViewById(R.id.searchview);
         manager_mode = (boolean)getIntent().getSerializableExtra("manager mode");
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()
@@ -134,9 +140,33 @@ public class MyQueues extends AppCompatActivity {
             public void onItemClick(AdapterView<?>adapter, View v, int position, long id){
 
                 //based on item add info to intent
-                Intent tousergroup = new Intent(MyQueues.this,usergroupviewActivty.class);
+                Intent tousergroup = new Intent(MyQueues.this, CurentQueue.class);
                 tousergroup.putExtra("queuename",mylist.getItemAtPosition(position).toString());
+                tousergroup.putExtra("manager_mode",manager_mode);
                 startActivity(tousergroup);
+            }
+        });
+
+
+        btback.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent toDashBoard = new Intent(MyQueues.this,dashboard.class);
+                toDashBoard.putExtra("manager_mode",manager_mode);
+                startActivity(toDashBoard);
+            }
+        });
+
+        searchView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String Qname = searchView.getQuery().toString();
+                if(doc.contains(Qname)) {
+                    Intent Go = new Intent(MyQueues.this, CurentQueue.class);
+                    Go.putExtra("queuename", Qname);
+                    Go.putExtra("manager_mode",manager_mode);
+                    startActivity(Go);
+                }
             }
         });
     }

@@ -38,6 +38,7 @@
                     android:textSize="24dp" />
                 <SearchView
                     android:layout_below="@+id/queuename"
+                    android:focusable="false"
                     android:id="@+id/searchview"
                     android:iconifiedByDefault="false"
                     android:layout_width="match_parent"
@@ -101,7 +102,7 @@
                 android:layout_height="match_parent"
                 >
                 <ImageView
-                    android:id="@+id/log_out"
+                    android:id="@+id/delete_queue"
                     android:src="@drawable/ic_delete_black_24dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -123,7 +124,7 @@
                 >
                 <ImageView
                     android:id="@+id/enter_queue"
-                    android:src="@drawable/ic_delete_black_24dp"
+                    android:src="@drawable/ic_play_arrow_black_24dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     style="?android:borderlessButtonStyle"/>

@@ -30,6 +30,7 @@ public class JoinQueue extends AppCompatActivity {
     ArrayList<String> doc = new ArrayList<>();
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     SearchView searchView;
+    boolean manager_mode;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +40,7 @@ public class JoinQueue extends AppCompatActivity {
         searchView.setFocusable(false);
         mylist = findViewById(R.id.mylist);
         back_bt = findViewById(R.id.btback);
+        manager_mode = (boolean)getIntent().getSerializableExtra("manager_mode");
 
         doc.clear();
         mylist.setAdapter(null);
@@ -70,8 +72,9 @@ public class JoinQueue extends AppCompatActivity {
             public void onItemClick(AdapterView<?>adapter, View v, int position,long id){
 
                 //based on item add info to intent
-                Intent tousergroup = new Intent(JoinQueue.this,usergroupviewActivty.class);
+                Intent tousergroup = new Intent(JoinQueue.this, CurentQueue.class);
                 tousergroup.putExtra("queuename",mylist.getItemAtPosition(position).toString());
+                tousergroup.putExtra("manager_mode",manager_mode);
                 startActivity(tousergroup);
             }
         });
@@ -80,7 +83,21 @@ public class JoinQueue extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent toDashBoard = new Intent(JoinQueue.this,dashboard.class);
+                toDashBoard.putExtra("manager_mode",manager_mode);
                 startActivity(toDashBoard);
+            }
+        });
+
+        searchView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String Qname = searchView.getQuery().toString();
+                if(doc.contains(Qname)) {
+                    Intent Go = new Intent(JoinQueue.this, CurentQueue.class);
+                    Go.putExtra("queuename", Qname);
+                    Go.putExtra("manager_mode",manager_mode);
+                    startActivity(Go);
+                }
             }
         });
     }

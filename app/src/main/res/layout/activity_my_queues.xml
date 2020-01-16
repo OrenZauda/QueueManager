@@ -9,38 +9,60 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-        <RelativeLayout
-            android:background="@color/signupColor"
+        <LinearLayout
+            android:id="@+id/topbar"
+            android:orientation="horizontal"
+            android:background="@color/colorPrimary"
             android:layout_width="match_parent"
-            android:layout_height="100dp">
+            android:layout_height="wrap_content">
 
             <ImageView
-                android:layout_marginLeft="20dp"
+                android:layout_marginLeft="15dp"
                 style="?android:borderlessButtonStyle"
                 android:id="@+id/btback"
                 android:layout_width="62dp"
-                android:layout_height="62dp"
+                android:layout_height="match_parent"
                 android:src="@drawable/back_web"
                 android:layout_centerVertical="true"
-                android:padding="0dp"
+                android:padding="0pt"
                 />
 
-            <TextView
-                android:layout_centerInParent="true"
-                android:id="@+id/textgroup"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/white"
-                android:text="Your list queues"
-                android:textSize="24dp" />
+            <LinearLayout
+                android:layout_margin="15dp"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:id="@+id/queuename"
+                    android:textColor="@color/white"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Your list queues"
+                    android:textSize="24dp" />
+                <SearchView
+                    android:focusable="false"
+                    android:layout_below="@+id/queuename"
+                    android:id="@+id/searchview"
+                    android:iconifiedByDefault="false"
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    android:queryHint="Search for queue"
+                    android:background="@drawable/shapeemail"
+                    />
 
-        </RelativeLayout>
+
+            </LinearLayout>
+        </LinearLayout>
 
 
         <ListView
             android:id="@+id/mylist"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@drawable/list_view_border"
+            android:divider="@color/colorPrimaryDark"
+            android:dividerHeight="2dp"
             >
 
         </ListView>

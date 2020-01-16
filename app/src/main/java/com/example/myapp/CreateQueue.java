@@ -41,7 +41,7 @@ public class CreateQueue extends AppCompatActivity {
     EditText queue_name, max_players;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     ListView mylist ;
-    ArrayList<String> Collectionslist =new ArrayList<>();
+    boolean manager_mode;
 
 
 
@@ -51,6 +51,7 @@ public class CreateQueue extends AppCompatActivity {
         setContentView(R.layout.activity_createqueue);
 
         radio_group = findViewById(R.id.radio_group);
+        manager_mode = (boolean)getIntent().getSerializableExtra("manager_mode");
         back_bt = findViewById(R.id.back);
         create_bt =findViewById(R.id.btcreategroup);
         queue_name = findViewById(R.id.queue_name);
@@ -80,6 +81,7 @@ public class CreateQueue extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent todashboard = new Intent(CreateQueue.this, dashboard.class);
+                todashboard.putExtra("manager_mode",manager_mode);
                 startActivity(todashboard);
             }
         });
@@ -122,7 +124,11 @@ public class CreateQueue extends AppCompatActivity {
                         public void onSuccess(Void aVoid) {
                             Log.d("my log","document created successfully");
                                     Toast.makeText(CreateQueue.this,"queue created successfuly",Toast.LENGTH_LONG).show();
+                                Map<String, Object> stam = new HashMap<>();
+                                db.collection("collections list").document(queue_name.getText().toString()).set(stam);
+
                                     Intent toDashBoard = new Intent(CreateQueue.this,dashboard.class);
+                                    toDashBoard.putExtra("manager_mode",manager_mode);
                                     startActivity(toDashBoard);
                         }
                     }).addOnFailureListener(new OnFailureListener() {
@@ -134,8 +140,7 @@ public class CreateQueue extends AppCompatActivity {
                         }
                     });
 
-                    Map<String, Object> stam = new HashMap<>();
-                    db.collection("collections list").document(queue_name.getText().toString()).set(stam);
+
                 }
             }
         });
