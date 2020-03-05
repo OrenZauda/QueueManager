@@ -12,14 +12,6 @@ Their is 3 possible ways to order the users in a given queue. first is FIFO, fir
 The second is based on how much other queues the user attend. the less he attend, the higher place he get in the queue.
 the last way is determined by the users properties like age, or urgency level.
 
-
-## Looking in to the app
- ## dash board
-  <img src="https://github.com/OrenZauda/QueueManager/blob/master/app%20pictures/dash%20board.png" width="190" height="300">  
- 
- ## queue list
-  <img src="https://github.com/OrenZauda/QueueManager/blob/master/app%20pictures/queue%20list.png" width="190" height="300">
- 
- ## select mode
-  <img src="https://github.com/OrenZauda/QueueManager/blob/master/app%20pictures/select%20mode.png" width="190" height="300">  
+## Looking in to the app    
+<img src="https://github.com/OrenZauda/QueueManager/blob/master/app%20pictures/select%20mode.png" width="190" height="300">  <img src="https://github.com/OrenZauda/QueueManager/blob/master/app%20pictures/dash%20board.png" width="190" height="300"> <img src="https://github.com/OrenZauda/QueueManager/blob/master/app%20pictures/queue%20list.png" width="190" height="300">  
 
