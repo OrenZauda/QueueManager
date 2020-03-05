@@ -1,5 +1,5 @@
 ### Authors: 
-Oren Zauda, [Avichay Avtai Nega](https://github.com/avichaynega), [Martin Ogan](https://github.com/Martinogan)
+Oren Zauda, [Avichay Nega](https://github.com/avichaynega), [Martin Ogan](https://github.com/Martinogan)
 
 # Queue Manager Application
 
