@@ -15,11 +15,11 @@ the last way is determined by the users properties like age, or urgency level.
 
 ## Looking in to the app
  ## dash board
-  <img src="https://github.com/OrenZauda/QueueManager/blob/master/app%20pictures/dash%20board.png" width="190" height="250">  
+  <img src="https://github.com/OrenZauda/QueueManager/blob/master/app%20pictures/dash%20board.png" width="190" height="300">  
  
  ## queue list
-  <img src="https://github.com/OrenZauda/QueueManager/blob/master/app%20pictures/queue%20list.png" width="190" height="250">
+  <img src="https://github.com/OrenZauda/QueueManager/blob/master/app%20pictures/queue%20list.png" width="190" height="300">
  
  ## select mode
-  <img src="https://github.com/OrenZauda/QueueManager/blob/master/app%20pictures/select%20mode.png" width="190" height="250">  
+  <img src="https://github.com/OrenZauda/QueueManager/blob/master/app%20pictures/select%20mode.png" width="190" height="300">  
 
