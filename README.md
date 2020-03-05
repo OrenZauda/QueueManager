@@ -12,6 +12,8 @@ Their is 3 possible ways to order the users in a given queue. first is FIFO, fir
 The second is based on how much other queues the user attend. the less he attend, the higher place he get in the queue.
 the last way is determined by the users properties like age, or urgency level.
 
-      
 
+## Looking in to the app
+
+file:///home/avichay/Desktop/WhatsApp Image 2020-03-05 at 14.39.22 (1).jpeg
 
