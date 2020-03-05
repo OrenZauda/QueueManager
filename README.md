@@ -15,5 +15,5 @@ the last way is determined by the users properties like age, or urgency level.
 
 ## Looking in to the app
 
-file:///home/avichay/Desktop/WhatsApp Image 2020-03-05 at 14.39.22 (1).jpeg
+
 
